@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-// import {
-//   case_page_transition
-// } from '@/animations/case_animations'
+import { TimelineMax, Power3 } from "gsap";
+
 import Home from "../views/Home.vue";
 
 const routes = [
@@ -9,10 +8,34 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    beforeEnter: (to, from, next) => {
+      let tl = new TimelineMax({});
+      tl.to(".case-loader__animate", 1.4, {
+        ease: Power3.easeInOut,
+        scale: 5000,
+      });
+
+      tl.play().then(() => {
+        next();
+        tl.reverse();
+      });
+    },
   },
   {
     path: "/about",
     name: "About",
+    beforeEnter: (to, from, next) => {
+      let tl = new TimelineMax({});
+      tl.to(".case-loader__animate", 1.4, {
+        ease: Power3.easeInOut,
+        scale: 5000,
+      });
+
+      tl.play().then(() => {
+        next();
+        tl.reverse();
+      });
+    },
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -22,6 +45,19 @@ const routes = [
   {
     path: "/portfolio",
     name: "Portfolio",
+    params: {},
+    beforeEnter: (to, from, next) => {
+      let tl = new TimelineMax({});
+      tl.to(".case-loader__animate", 1.4, {
+        ease: Power3.easeInOut,
+        scale: 5000,
+      });
+
+      tl.play().then(() => {
+        next();
+        tl.reverse();
+      });
+    },
     // route level code-splitting
     // this generates a separate chunk (portfolio.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -31,6 +67,18 @@ const routes = [
   {
     path: "/contacts",
     name: "Contacts",
+    beforeEnter: (to, from, next) => {
+      let tl = new TimelineMax({});
+      tl.to(".case-loader__animate", 1.4, {
+        ease: Power3.easeInOut,
+        scale: 5000,
+      });
+
+      tl.play().then(() => {
+        next();
+        tl.reverse();
+      });
+    },
     // route level code-splitting
     // this generates a separate chunk (portfolio.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -40,6 +88,18 @@ const routes = [
   {
     path: "/case",
     name: "Case",
+    beforeEnter: (to, from, next) => {
+      let tl = new TimelineMax({});
+      tl.to(".case-loader__animate", 1.4, {
+        ease: Power3.easeInOut,
+        scale: 5000,
+      });
+
+      tl.play().then(() => {
+        next();
+        tl.reverse();
+      });
+    },
     // route level code-splitting
     // this generates a separate chunk (portfolio.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -51,13 +111,5 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
-
-// if (to.name == 'Case') {
-//   gsap.to('.header', 3, {
-//     transform: 'translateX(20px)'
-//   }).then(() => {
-//     next()
-//   })
-// }
 
 export default router;

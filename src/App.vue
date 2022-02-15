@@ -1,6 +1,7 @@
 <template>
+  <v-case-loader :case_data="CASE_DATA"></v-case-loader>
+
   <header class="header">
-    <v-case-loader :case_data="CASE_DATA"></v-case-loader>
     <router-link to="/" class="logo">
       <svg
         width="174"
@@ -49,22 +50,45 @@
         </svg>
       </button>
       <div class="menu__list">
-        <div class="menu__link-wrapper">
+        <div
+          class="menu__link-wrapper"
+          ref="menu__about"
+          @click="menuClose"
+          @mouseenter="aboutPage('enter', this.$refs.menu__about)"
+          @mouseleave="aboutPage('leave', this.$refs.menu__about)"
+        >
           <router-link class="menu__link" to="/about">
             <h3 class="menu__title">Обо мне</h3>
-            <p class="menu__subtitle"></p>
+            <p class="menu__subtitle">Раз уж Вы тут, давайте знакомиться!</p>
           </router-link>
         </div>
-        <div class="menu__link-wrapper">
+        <div
+          class="menu__link-wrapper"
+          ref="menu__portfolio"
+          @click="menuClose"
+          @mouseenter="aboutPage('enter', this.$refs.menu__portfolio)"
+          @mouseleave="aboutPage('leave', this.$refs.menu__portfolio)"
+        >
           <router-link class="menu__link" to="/portfolio">
             <h3 class="menu__title">Портфолио</h3>
-            <p class="menu__subtitle"></p>
+            <p class="menu__subtitle">Убедитесь в моей компетентности</p>
           </router-link>
         </div>
-        <div class="menu__link-wrapper">
+        <div
+          class="menu__link-wrapper"
+          ref="menu__contacts"
+          @click="menuClose"
+          @mouseenter="aboutPage('enter', this.$refs.menu__contacts)"
+          @mouseleave="aboutPage('leave', this.$refs.menu__contacts)"
+        >
           <router-link class="menu__link" to="/contacts">
             <h3 class="menu__title">Контакты</h3>
-            <p class="menu__subtitle"></p>
+            <p class="menu__subtitle">
+              <a href="https://t.me/AndrewDeveloper" target="_blank"
+                >Telegram: @AndrewDeveloper</a
+              >
+              <a href="mailto:xolluej@list.ru">Mail: xolluej@list.ru</a>
+            </p>
           </router-link>
         </div>
 
@@ -165,7 +189,7 @@
 </template>
 
 <script>
-import { gsap, Power3 } from "gsap";
+import { gsap, Power3, TimelineMax } from "gsap";
 import vCaseLoader from "@/components/v-case-loader";
 import { mapGetters } from "vuex";
 export default {
@@ -203,7 +227,7 @@ export default {
               gsap.to(".menu__close", 0.4, {
                 opacity: 1,
                 zIndex: 3,
-                transform: "translateY(10px)",
+                transform: "translate(-50%, 10px)",
               });
             });
         });
@@ -213,7 +237,7 @@ export default {
         .to(".menu__close", 0.4, {
           opacity: 0,
           zIndex: 0,
-          transform: "translateY(0px)",
+          transform: "translate(-50%, 0px)",
         })
         .then(() => {
           gsap
@@ -229,6 +253,41 @@ export default {
               });
             });
         });
+    },
+    aboutPage(action, ref) {
+      let tl = new TimelineMax({});
+      let title = ref.childNodes[0].childNodes[0];
+      let subtitle = ref.childNodes[0].childNodes[1];
+
+      if (action == "enter") {
+        tl.to(title, 0.8, {
+          transform: `translateY(-15px)`,
+          ease: Power3.easeInOut,
+        });
+        tl.to(
+          subtitle,
+          0.8,
+          {
+            height: "auto",
+            ease: Power3.easeInOut,
+          },
+          "-=0.7"
+        );
+      } else if (action == "leave") {
+        tl.to(title, 0.8, {
+          transform: `translateY(0px)`,
+          ease: Power3.easeInOut,
+        });
+        tl.to(
+          subtitle,
+          0.8,
+          {
+            height: "0%",
+            ease: Power3.easeInOut,
+          },
+          "-=0.7"
+        );
+      }
     },
   },
   computed: {
@@ -270,6 +329,7 @@ export default {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
   }
   &__link-wrapper {
     text-decoration: none;
@@ -299,6 +359,18 @@ export default {
     font-weight: 600;
     letter-spacing: 0.02em;
     white-space: nowrap;
+  }
+  &__subtitle {
+    height: 0%;
+    overflow: hidden;
+    > a {
+      display: block;
+      margin-bottom: 8px;
+      text-align: center;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
   &__close {
     position: fixed;
@@ -343,6 +415,57 @@ export default {
   transform: rotate(-90deg);
   svg {
     height: 100%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .menu {
+    &__list {
+      flex-direction: column;
+    }
+  }
+}
+@media (max-height: 768px) and (max-width: 1024px) {
+  .menu {
+    &__subtitle {
+      height: auto;
+    }
+    &__title {
+      margin-bottom: 14px;
+    }
+  }
+}
+@media (max-width: 600px) {
+  #app {
+    flex-direction: column;
+  }
+  .header {
+    height: initial;
+    width: 100%;
+    border-right: none;
+    display: flex;
+    flex-direction: row;
+  }
+  .menu {
+    &__button {
+      font-size: 18px;
+      display: inline;
+      transform: rotate(0);
+    }
+  }
+  .logo {
+    transform: rotate(0);
+    max-width: 170px;
+    svg {
+      max-width: 170px;
+    }
+  }
+  .social {
+    flex-direction: row;
+    display: none;
+    &__link {
+      margin-bottom: 0;
+    }
   }
 }
 </style>

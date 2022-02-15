@@ -25,6 +25,42 @@ export default createStore({
             "https://www.figma.com/file/QdqBrY1uKSo2yBoaacW10G/Client-Admin-Panel-BlueWater?node-id=0%3A1",
           ],
           fonts: ["montserrat-regular", "montserrat-bold"],
+          colors: {
+            color_description:
+              "Объединив основные цвета с цифровыми цветами, я согласовал визуальную идентичность с основными ценностями Blue water diamond. Основная цветовая палитра - темный и белый - создает высокий контраст для чёткого понимания что есть что. Акцетный пурпурный цвет был предопределён фирменным стилем компании. Желтые, зеленые и пурпурные цвета добавляют макету более дружелюбный оттенок",
+            color_list: [
+              {
+                color_name: "blue water diamond",
+                color_position: "секция – акцетный тёмный",
+                color_hex: "#30303A",
+                block_text_color: "#fff",
+              },
+              {
+                color_name: "blue water diamond",
+                color_position: "фон – акцетный тёмный",
+                color_hex: "#363740",
+                block_text_color: "#fff",
+              },
+              {
+                color_name: "blue water diamond",
+                color_position: "текст – акцетный белый",
+                color_hex: "#FFFFFF",
+                block_text_color: "#000",
+              },
+              {
+                color_name: "blue water diamond",
+                color_position: "фон – акцетный тёмный",
+                color_hex: "#363740",
+                block_text_color: "#fff",
+              },
+              {
+                color_name: "blue water diamond",
+                color_position: "текст – акцетный белый",
+                color_hex: "#FFFFFF",
+                block_text_color: "#000",
+              },
+            ],
+          },
         },
         {
           id: 1,

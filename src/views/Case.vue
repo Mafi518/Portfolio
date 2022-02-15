@@ -48,9 +48,15 @@
     <div class="palette">
       <div class="palette__info">
         <h2 class="palette__title">Цветовая палитра</h2>
-        <p class="palette__subtitle"></p>
+        <p class="palette__subtitle">
+          {{ CASE_DATA.colors.color_description }}
+        </p>
         <div class="palette__controls">
-          <button class="palette__control prev">
+          <button
+            class="palette__control prev"
+            data-action="prev"
+            @click.prevent="moveSlider"
+          >
             <svg
               width="38"
               height="18"
@@ -64,7 +70,11 @@
               />
             </svg>
           </button>
-          <button class="palette__control next">
+          <button
+            class="palette__control next"
+            data-action="next"
+            @click.prevent="moveSlider"
+          >
             <svg
               width="38"
               height="18"
@@ -80,17 +90,80 @@
           </button>
         </div>
       </div>
-      <div class="palette__slider"></div>
+      <div class="palette__slider">
+        <div class="palette__slider-line">
+          <div
+            class="palette__slider-item"
+            ref="color_item"
+            v-for="color_data in CASE_DATA.colors.color_list"
+            :key="color_data.color_hex"
+            :style="{
+              backgroundColor: `${color_data.color_hex}`,
+              color: `${color_data.block_text_color}`,
+            }"
+          >
+            <h3 class="palette__slider-title">{{ color_data.color_name }}</h3>
+            <p class="palette__slider-subtitle">
+              {{ color_data.color_position }}
+            </p>
+            <p class="palette__slider-color">{{ color_data.color_hex }}</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { gsap } from "gsap";
 
 export default {
   name: "Case",
+  data() {
+    return {
+      offset: 0,
+    };
+  },
   methods: {
-    ...mapActions,
+    ...mapActions(["GET_CASE_DATA"]),
+    moveSlider(e) {
+      if (e.target.getAttribute("data-action") == "next") {
+        this.offset = this.offset + 320;
+        if (
+          this.offset >=
+          this.$refs.color_item[0].clientWidth * this.$refs.color_item.length -
+            this.$refs.color_item[0].clientWidth * 3
+        ) {
+          this.offset =
+            this.$refs.color_item[0].clientWidth *
+              this.$refs.color_item.length -
+            this.$refs.color_item[0].clientWidth * 3;
+        }
+        console.log(
+          this.$refs.color_item[0].clientWidth * this.$refs.color_item.length -
+            this.$refs.color_item[0].clientWidth * 3
+        );
+        gsap.to(".palette__slider-line", 1, {
+          transform: `translateX(-${this.offset}px)`,
+        });
+      } else {
+        this.offset = this.offset - 320;
+        if (this.offset <= 0) {
+          this.offset = 0;
+        }
+
+        gsap.to(".palette__slider-line", 1, {
+          transform: `translateX(-${this.offset}px)`,
+        });
+      }
+
+      console.log(this.offset);
+    },
+  },
+  created() {
+    if (this.CASE_DATA.id == undefined) {
+      this.GET_CASE_DATA(JSON.parse(localStorage.getItem("case")));
+    }
   },
   computed: {
     ...mapGetters(["CASE_DATA"]),
@@ -104,6 +177,11 @@ export default {
   display: flex;
   flex-direction: column;
   overflow: auto;
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
   > div {
     min-height: 100vh;
   }
@@ -171,5 +249,133 @@ export default {
 .palette {
   min-height: 860px;
   background-color: $gray;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__info {
+    margin-left: 60px;
+  }
+  &__title {
+    font-size: 22px;
+  }
+  &__subtitle {
+    line-height: 120%;
+    max-width: 388px;
+    width: 100%;
+    margin: 25px 0;
+    font-size: 18px;
+  }
+  &__controls {
+    display: flex;
+    max-width: 110px;
+    width: 100%;
+    justify-content: space-between;
+  }
+  &__control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: none;
+    background-color: $dark;
+    cursor: pointer;
+    svg {
+      width: 30px;
+      pointer-events: none;
+    }
+  }
+  &__slider {
+    max-height: 580px;
+    height: 100%;
+    display: flex;
+    overflow: auto;
+    max-width: 960px;
+    width: 100%;
+    &-line {
+      width: auto;
+      height: 100%;
+      display: flex;
+      position: relative;
+      left: 0;
+    }
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+    &-item {
+      height: inherit;
+      padding: 0 15px;
+      padding-bottom: 100px;
+      min-width: 320px;
+      display: flex;
+      justify-content: flex-end;
+      flex-direction: column;
+      color: $white;
+    }
+    &-title {
+      font-size: 24px;
+    }
+    &-subtitle {
+      margin: 13px 0;
+    }
+    &-color {
+      text-transform: uppercase;
+      font-family: "Montserrat", sans-serif;
+    }
+  }
 }
+
+@media (max-width: 1366px) {
+  .mockups {
+  }
+  .about {
+    &__description {
+      font-size: 36px;
+      padding: 30px;
+      min-width: 500px;
+    }
+    &__details {
+      max-width: 420px;
+      padding: 0 25px;
+      &-wrapper {
+      }
+      &-title,
+      &-subtitle {
+        font-size: 18px;
+      }
+    }
+  }
+  .font {
+    min-height: initial !important;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    &__image {
+      margin-left: 0;
+      margin-bottom: 20px;
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+  .palette {
+    padding: 30px;
+    padding-right: 0;
+    &__info {
+      margin-left: 0;
+      margin-right: 20px;
+    }
+  }
+}
+
+//tablet
+
+@media (max-height: 1024px) and (max-width: 768px) {
+}
+
+//reverse tablet
 </style>

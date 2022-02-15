@@ -80,9 +80,8 @@
         <h1 class="home__info-title">Андрей Холлуэй</h1>
         <p class="home__info-subtitle">
           Занимаюсь веб-разработкой более 3.5 лет, всегда изучаю новые
-          технологии и иду в ногу со временем. Работая со мной, Вы получаете
-          полностью готовый проект, будь то верстка или сайт под ключ. Всегда
-          довожу проект до конца и поддерживаю в работе.
+          технологии и иду в ногу со временем. Всегда довожу проект до конца и
+          поддерживаю в работе.
         </p>
         <v-button class="home__info-hire">Нанять меня</v-button>
       </div>
@@ -96,7 +95,7 @@
         <ul class="home__portfolio-list">
           <li
             class="home__portfolio-item"
-            @click="test"
+            @click="toCase(work)"
             v-for="work in PORTFOLIO"
             :key="work.id"
             :style="{
@@ -121,17 +120,56 @@
         </ul>
       </div>
     </div>
+    <router-link class="mobile__link-portfolio" to="/portfolio"
+      >Перейти в портфолио</router-link
+    >
   </section>
 </template>
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import { TimelineMax, Power2 } from "gsap";
 
 export default {
   name: "Home",
   components: {},
   methods: {
-    ...mapActions(["GET_PORTFOLIO"]),
+    ...mapActions(["GET_PORTFOLIO", "GET_CASE_DATA"]),
+    async toCase(data) {
+      await this.GET_CASE_DATA(data);
+
+      let tl = new TimelineMax({});
+
+      tl.set(".case-loader__wrapper", {
+        zIndex: 2,
+      });
+      tl.to(".case-loader__animate", 2, {
+        ease: Power2.easeInOut,
+        scale: 5000,
+        onComplete: () => {
+          this.$router.push("/case");
+        },
+      });
+      tl.to(".case-loader__title", 0.8, {
+        ease: Power2.easeInOut,
+        height: "auto",
+      });
+      tl.to(
+        ".case-loader__tasks",
+        0.8,
+        {
+          ease: Power2.easeInOut,
+          height: "auto",
+        },
+        "-=0.5"
+      );
+
+      tl.play().then(() => {
+        setTimeout(async () => {
+          tl.reverse();
+        }, 1500);
+      });
+    },
   },
   computed: {
     ...mapGetters(["PORTFOLIO"]),
@@ -155,7 +193,7 @@ export default {
     justify-content: space-between;
   }
   &__circle {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     z-index: -1;
@@ -235,6 +273,161 @@ export default {
     }
     &-label {
     }
+  }
+}
+.mobile__link-portfolio {
+  display: none;
+}
+// notebooks
+
+@media screen and (max-width: 1366px) and (min-width: 1024px) {
+  .home {
+    &__info {
+      max-width: 600px;
+      padding: 0 20px;
+      &-title {
+        font-size: 72px;
+      }
+    }
+    &__portfolio {
+      max-width: 480px;
+      &-item {
+        max-width: auto;
+      }
+      &-link {
+        margin-left: 10px;
+      }
+    }
+  }
+}
+
+// reverse tablets
+
+@media (max-height: 1024px) and (max-width: 768px) {
+  .home {
+    padding-top: 3vh;
+
+    &__container {
+      flex-direction: column;
+    }
+    &__info {
+      max-width: 80%;
+      &-title {
+        margin: 14px 0 14px 0;
+        font-size: 72px;
+      }
+      &-subtitle {
+        margin-bottom: 20px;
+      }
+    }
+    &__portfolio {
+      max-width: 100%;
+      padding-bottom: 20px;
+      padding-right: 140px;
+      height: 50%;
+      &-label {
+        display: none;
+      }
+      &-title {
+        margin-bottom: 10px;
+      }
+      &-description {
+        display: none;
+      }
+      &-list {
+        display: flex;
+      }
+      &-link {
+        padding-right: 10px;
+      }
+      &-item {
+        margin-right: 25px;
+        min-width: 300px;
+        min-height: initial;
+      }
+    }
+  }
+}
+
+// tablets
+
+@media (max-height: 768px) and (max-width: 1024px) {
+  .home {
+    padding-top: 5vh;
+
+    &__container {
+      flex-direction: column;
+    }
+    &__info {
+      max-width: 80%;
+      &-title {
+        margin: 14px 0 14px 0;
+      }
+      &-subtitle {
+        margin-bottom: 20px;
+      }
+    }
+    &__portfolio {
+      max-width: 100%;
+      padding-bottom: 20px;
+      padding-right: 140px;
+      height: 50%;
+      &-label {
+        display: none;
+      }
+      &-title {
+        margin-bottom: 10px;
+      }
+      &-description {
+        display: none;
+      }
+      &-list {
+        display: flex;
+      }
+      &-link {
+        padding-right: 10px;
+      }
+      &-item {
+        margin-right: 25px;
+        min-width: 300px;
+        min-height: initial;
+      }
+    }
+  }
+}
+
+// mobile
+
+@media (max-width: 767px) and (min-width: 300px) {
+  .home {
+    &__info {
+      padding: 0 10px;
+      max-width: initial;
+      &-suptitle {
+        font-size: 16px;
+      }
+      &-title {
+        font-size: 48px;
+      }
+      &-subtitle {
+        font-size: 16px;
+      }
+    }
+    &__portfolio {
+      display: none;
+    }
+  }
+  .mobile__link-portfolio {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 14px;
+    background-color: $white;
+    color: $dark;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

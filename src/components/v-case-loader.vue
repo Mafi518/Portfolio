@@ -27,7 +27,6 @@ export default {
     transform: translateX(-50%);
     max-width: 80vw;
     width: 100%;
-    height: auto;
     z-index: 2;
     display: flex;
     flex-direction: column;
@@ -35,11 +34,11 @@ export default {
     z-index: -1;
   }
   &__animate {
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0;
     border-radius: 50%;
-    background-color: #000;
+    background-color: $dark;
     width: 1px;
     height: 1px;
     transform: scale(1);
