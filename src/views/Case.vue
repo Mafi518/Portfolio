@@ -10,7 +10,9 @@
     </div>
     <div class="about">
       <!-- <h2 class="about__name"> {{ CASE_DATA.name }} </h2> -->
-      <div class="about__description">{{ CASE_DATA.description }}</div>
+      <div class="about__description">
+        {{ CASE_DATA.description.project_description }}
+      </div>
       <div class="about__details">
         <div class="about__details-wrapper">
           <div class="about__details-info">
@@ -22,16 +24,23 @@
             <p class="about__details-subtitle">{{ CASE_DATA.technologies }}</p>
           </div>
           <div class="about__details-info">
-            <h3 class="about__details-title">Ссылка на работу</h3>
-            <p
-              class="about__details-subtitle"
+            <h3 class="about__details-title">
+              {{
+                CASE_DATA.links.length > 1
+                  ? "Ссылки на работу"
+                  : "Ссылка на работу"
+              }}
+            </h3>
+
+            <a
+              class="about__details-link"
+              :href="`${link}`"
               v-for="link in CASE_DATA.links"
               :key="link"
+              target="_blank"
             >
-              <a class="about__details-link" :href="`${link}`" target="_blank">
-                {{ link }}
-              </a>
-            </p>
+              {{ link }}
+            </a>
           </div>
         </div>
       </div>
@@ -45,7 +54,10 @@
         alt=""
       />
     </div>
-    <div class="palette">
+    <div
+      class="palette"
+      v-if="CASE_DATA.labels.filter((item) => item == 'Дизайн').length"
+    >
       <div class="palette__info">
         <h2 class="palette__title">Цветовая палитра</h2>
         <p class="palette__subtitle">
@@ -189,7 +201,15 @@ export default {
 .mockups {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: space-evenly;
+  min-height: initial !important;
+  height: initial;
+  img {
+    max-width: 100%;
+    height: auto;
+    padding: 30px 10px;
+  }
 }
 .about {
   display: flex;
@@ -220,6 +240,9 @@ export default {
     }
     &-link {
       color: $dark;
+      margin-bottom: 10px;
+      display: block;
+      text-decoration: underline;
     }
     &-title {
       @include h3;
@@ -290,9 +313,9 @@ export default {
     max-height: 580px;
     height: 100%;
     display: flex;
-    overflow: auto;
     max-width: 960px;
     width: 100%;
+    overflow: hidden;
     &-line {
       width: auto;
       height: 100%;
@@ -368,6 +391,60 @@ export default {
     &__info {
       margin-left: 0;
       margin-right: 20px;
+    }
+  }
+}
+
+@media (max-width: 970px) {
+  .about {
+    flex-direction: column;
+    min-height: 40vh;
+    &__description {
+      // word-break: ;
+      padding: 30px 10px;
+      min-width: initial;
+    }
+    &__details {
+      max-width: initial;
+      padding: 25px;
+      &-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+      }
+    }
+  }
+  .font {
+  }
+}
+
+@media (max-width: 767px) {
+  .palette {
+    flex-direction: column;
+    padding: 30px 0;
+    align-items: flex-start;
+    min-height: initial;
+    &__info {
+      margin-left: 30px;
+      margin-right: 30px;
+      margin-bottom: 30px;
+    }
+    &__subtitle {
+      max-width: initial;
+    }
+    &__slider {
+      &-item {
+        padding-bottom: 40px;
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .mockups {
+    img {
+      &:first-child {
+        display: none;
+      }
     }
   }
 }

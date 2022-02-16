@@ -136,4 +136,50 @@ export default {
     }
   }
 }
+@media (max-width: 1440px) {
+  .contacts {
+    &__container {
+      padding-right: 60px;
+    }
+    &__image {
+      max-width: 50%;
+      img {
+      }
+    }
+    &__links {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    &__link {
+      margin: 0 10px;
+      margin-bottom: 20px;
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .contacts {
+    flex-direction: column;
+    &__title {
+      font-size: 36px;
+    }
+    &__links {
+      margin-top: 30px;
+    }
+    &__image {
+      max-width: 100%;
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .contacts {
+    &__container {
+      padding: 0 10px;
+    }
+  }
+}
 </style>

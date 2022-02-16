@@ -83,7 +83,9 @@
           технологии и иду в ногу со временем. Всегда довожу проект до конца и
           поддерживаю в работе.
         </p>
-        <v-button class="home__info-hire">Нанять меня</v-button>
+        <v-button class="home__info-hire" @click.prevent="hireMe"
+          >Нанять меня</v-button
+        >
       </div>
       <div class="home__portfolio">
         <h2 class="home__portfolio-title">
@@ -169,6 +171,9 @@ export default {
           tl.reverse();
         }, 1500);
       });
+    },
+    hireMe() {
+      window.open("https://t.me/AndrewDeveloper", "_blank");
     },
   },
   computed: {
@@ -428,6 +433,45 @@ export default {
     color: $dark;
     display: flex;
     justify-content: center;
+  }
+}
+
+@media (max-width: 768px) and (min-height: 768px) {
+  .home {
+    height: 100%;
+    &__info {
+      padding-bottom: 20px;
+    }
+    &__container {
+      height: 100%;
+      justify-content: space-between;
+    }
+    &__portfolio {
+      display: initial;
+      padding-right: 0;
+      height: auto;
+      &-title {
+        width: 100%;
+        font-size: 18px;
+      }
+      &-list {
+        padding-bottom: 20px;
+        align-items: flex-end;
+        height: initial;
+      }
+      &-item {
+        min-width: 250px;
+        min-height: 40vh;
+        margin-bottom: 0;
+      }
+      &-name,
+      &-link {
+        font-size: 16px;
+      }
+    }
+  }
+  .mobile__link-portfolio {
+    display: none;
   }
 }
 </style>

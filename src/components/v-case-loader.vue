@@ -30,7 +30,6 @@ export default {
     z-index: 2;
     display: flex;
     flex-direction: column;
-    height: 300px;
     z-index: -1;
   }
   &__animate {
@@ -49,18 +48,29 @@ export default {
     @include h2;
     position: absolute;
     left: 0;
-    bottom: 50px;
+    bottom: 75px;
     color: $white;
     height: 0px;
     overflow: hidden;
   }
   &__tasks {
     color: $white;
-    position: absolute;
     left: 0;
     bottom: 25px;
     height: 0px;
     overflow: hidden;
+  }
+}
+
+@media (max-width: 640px) {
+  .case-loader {
+    &__wrapper {
+      left: 20px;
+      transform: translate(0);
+    }
+    &__title {
+      font-size: 60px;
+    }
   }
 }
 </style>

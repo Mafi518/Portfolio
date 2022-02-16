@@ -88,18 +88,18 @@ const routes = [
   {
     path: "/case",
     name: "Case",
-    beforeEnter: (to, from, next) => {
-      let tl = new TimelineMax({});
-      tl.to(".case-loader__animate", 1.4, {
-        ease: Power3.easeInOut,
-        scale: 5000,
-      });
+    // beforeEnter: (to, from, next) => {
+    //   let tl = new TimelineMax({});
+    //   tl.to(".case-loader__animate", 1.4, {
+    //     ease: Power3.easeInOut,
+    //     scale: 5000,
+    //   });
 
-      tl.play().then(() => {
-        next();
-        tl.reverse();
-      });
-    },
+    //   tl.play().then(() => {
+    //     next();
+    //     tl.reverse();
+    //   });
+    // },
     // route level code-splitting
     // this generates a separate chunk (portfolio.[hash].js) for this route
     // which is lazy-loaded when the route is visited.

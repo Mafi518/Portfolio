@@ -140,7 +140,7 @@
           />
         </svg>
       </a>
-      <a class="social__link" mailto="xolluej@list.ru" target="_blank">
+      <a class="social__link" href="mailto:xolluej@list.ru" target="_blank">
         <svg
           width="38"
           height="38"
@@ -310,6 +310,7 @@ export default {
   height: 100%;
   width: 140px;
   border-right: 1px solid #c4c4c4;
+  padding: 10px 0;
 }
 .menu {
   position: fixed;
@@ -435,7 +436,7 @@ export default {
     }
   }
 }
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   #app {
     flex-direction: column;
   }
@@ -451,6 +452,10 @@ export default {
       font-size: 18px;
       display: inline;
       transform: rotate(0);
+    }
+    &__link {
+      padding: 20px;
+      text-align: center;
     }
   }
   .logo {

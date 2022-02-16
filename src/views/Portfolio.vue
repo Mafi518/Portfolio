@@ -15,10 +15,17 @@
         v-for="work in PORTFOLIO"
         :key="work.id"
       >
-        <h2 class="portfolio__item-name">{{ work.name }}</h2>
-        <p class="portfolio__item-details">
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt
-          quam numquam corporis possimus aspernatur asperiores.
+        <h2
+          class="portfolio__item-name"
+          :style="{ color: `${work.description.color}` }"
+        >
+          {{ work.name }}
+        </h2>
+        <p
+          class="portfolio__item-details"
+          :style="{ color: `${work.description.color}` }"
+        >
+          {{ work.description.project_description }}
         </p>
       </li>
     </ul>
@@ -163,7 +170,7 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 .portfolio {
   min-width: 100%;
   overflow: auto;
@@ -226,6 +233,52 @@ export default {
       }
     }
     &-next {
+    }
+  }
+}
+
+@media (max-width: 1366px) {
+}
+@media (max-width: 1023px) {
+  // .portfolio {
+
+  //   &__controls {
+  //     display: none;
+  //   }
+  //   &__list {
+  //     flex-direction: column;
+  //     overflow: auto;
+  //   }
+  //   &__item {
+  //     min-width: initial;
+  //     min-height: 33%;
+  //   }
+  // }
+}
+@media (max-width: 768px) {
+  .portfolio {
+    height: 100%;
+    &__controls {
+      display: none;
+    }
+    &__item {
+      min-width: 40%;
+      &-name {
+        font-size: 36px;
+      }
+    }
+  }
+}
+@media (max-width: 640px) {
+  .portfolio {
+    &__list {
+      flex-direction: column;
+    }
+    &__item {
+      min-height: 33%;
+      &-details {
+        height: auto;
+      }
     }
   }
 }

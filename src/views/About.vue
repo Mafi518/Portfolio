@@ -28,7 +28,11 @@
         </div>
       </div>
 
-      <div class="about__section about__circle-text">
+      <a
+        href="https://t.me/AndrewDeveloper"
+        target="_blank"
+        class="about__section about__circle-text"
+      >
         <div class="about__circle"></div>
         <svg viewBox="0 0 498 526" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -152,7 +156,7 @@
             d="M196.716 56.1411L201.633 44.3078C199.739 44.1933 198.184 43.5703 196.968 42.4389C195.775 41.3035 195.026 39.8369 194.718 38.0389C194.488 36.6905 194.611 35.4155 195.087 34.2141C195.583 32.985 196.392 31.946 197.513 31.097C198.63 30.2244 200.04 29.6426 201.743 29.3515L209.55 28.0175L213.856 53.2123L211.407 53.6307L209.636 43.2689L205.13 44.039C204.988 44.0633 204.834 44.0895 204.668 44.1178C204.526 44.1421 204.385 44.1663 204.243 44.1906L199.555 55.656L196.716 56.1411ZM204.015 42.0017L209.267 41.1043L207.472 30.6005L202.362 31.4737C201.203 31.6718 200.198 32.0626 199.348 32.6461C198.498 33.2295 197.89 33.9422 197.522 34.7842C197.155 35.6261 197.06 36.5675 197.238 37.6084C197.416 38.6493 197.798 39.5335 198.385 40.2611C198.972 40.9886 199.732 41.5162 200.664 41.8438C201.62 42.1674 202.737 42.22 204.015 42.0017Z"
           />
         </svg>
-      </div>
+      </a>
 
       <div class="about__section">
         <div class="about__item">
@@ -226,6 +230,7 @@ export default {
       width: 100%;
       justify-content: center;
       cursor: pointer;
+      padding: 0 10px;
       svg {
         fill: $white;
         transform: rotate(0deg);
@@ -244,5 +249,38 @@ export default {
   100% {
     transform: rotate(-360deg);
   }
+}
+
+@media (max-width: 1366px) {
+}
+@media (max-width: 1024px) {
+  .about {
+    padding: 30px;
+    &__circle {
+      &-text {
+        display: none;
+      }
+    }
+  }
+}
+@media (max-width: 768px) {
+  .about {
+    overflow: auto;
+    &__title {
+      font-size: 36px;
+      text-align: left;
+    }
+    &__container {
+      flex-wrap: wrap;
+    }
+    &__section {
+      margin-bottom: 30px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+@media (max-width: 640px) {
 }
 </style>
