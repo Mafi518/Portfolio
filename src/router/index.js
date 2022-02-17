@@ -10,15 +10,29 @@ const routes = [
     component: Home,
     beforeEnter: (to, from, next) => {
       let tl = new TimelineMax({});
-      tl.to(".case-loader__animate", 1.4, {
-        ease: Power3.easeInOut,
-        scale: 5000,
-      });
 
-      tl.play().then(() => {
-        next();
-        tl.reverse();
-      });
+      if (to.path == from.path) {
+        tl.set(".case-loader__animate", {
+          scale: 5000,
+          onComplete: () => {
+            next();
+          },
+        });
+        tl.to(".case-loader__animate", 1.4, {
+          scale: 0,
+          ease: Power3.easeInOut,
+        });
+      } else {
+        tl.to(".case-loader__animate", 1.4, {
+          ease: Power3.easeInOut,
+          scale: 5000,
+        });
+
+        tl.play().then(() => {
+          next();
+          tl.reverse();
+        });
+      }
     },
   },
   {

@@ -79,9 +79,10 @@
         <h3 class="home__info-suptitle">Frontend & UI|UX Designer</h3>
         <h1 class="home__info-title">Андрей Холлуэй</h1>
         <p class="home__info-subtitle">
-          Занимаюсь веб-разработкой более 3.5 лет, всегда изучаю новые
-          технологии и иду в ногу со временем. Всегда довожу проект до конца и
-          поддерживаю в работе.
+          Приветствую! Меня зовут Андрей. Занимаюсь веб-разработкой(fullstack) и
+          веб-дизайном (UI/UX). Сайты разрабатываю без конструкторов, как под
+          ключ, так и по готовому макету figma/photoshop. Опыт в сфере
+          разработки более 3 лет, в дизайне 1,5 года
         </p>
         <v-button class="home__info-hire" @click.prevent="hireMe"
           >Нанять меня</v-button
@@ -112,10 +113,12 @@
                 {{ work.name }}
               </h3>
               <p class="home__portfolio-description">
-                {{ work.description }}
+                {{ work.description.project_description }}
               </p>
               <p class="home__portfolio-label">
-                {{ work.labels }}
+                <span v-for="label in work.labels" :key="label">
+                  {{ label }}
+                </span>
               </p>
             </div>
           </li>
@@ -225,7 +228,9 @@ export default {
   }
   &__portfolio {
     padding: 0 20px;
+    padding-left: 0;
     padding-bottom: 70px;
+
     &-title {
       @include h3;
       margin-bottom: 45px;
@@ -243,7 +248,6 @@ export default {
     &-list {
       height: 100%;
       overflow: auto;
-      border-radius: 25px;
       &::-webkit-scrollbar {
         display: none;
         width: 0;
@@ -256,12 +260,24 @@ export default {
       width: 100%;
       min-height: 497px;
       border-radius: 25px;
+      margin-right: 0;
       background-size: cover;
       background-repeat: no-repeat;
       display: flex;
       align-items: flex-end;
       padding: 10px;
       margin-bottom: 20px;
+      &:last-child {
+        margin-right: 20px;
+      }
+    }
+    &-title,
+    &-item,
+    &-title a {
+      margin-left: 20px;
+    }
+    &-title a {
+      margin-right: 20px;
     }
     &-info {
       background-color: $dark;
@@ -276,7 +292,8 @@ export default {
     &-description {
       margin: 14px 0;
     }
-    &-label {
+    &-label span {
+      margin-right: 10px;
     }
   }
 }
@@ -346,7 +363,6 @@ export default {
         padding-right: 10px;
       }
       &-item {
-        margin-right: 25px;
         min-width: 300px;
         min-height: initial;
       }
@@ -455,7 +471,6 @@ export default {
         font-size: 18px;
       }
       &-list {
-        padding-bottom: 20px;
         align-items: flex-end;
         height: initial;
       }

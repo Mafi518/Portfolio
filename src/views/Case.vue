@@ -217,7 +217,7 @@ export default {
   background-color: $white;
   &__description {
     font-size: 72px;
-    padding: 60px;
+    padding: 30px;
     min-width: 760px;
   }
   &__details {
@@ -229,6 +229,7 @@ export default {
     justify-content: center;
     flex-direction: column;
     word-break: break-word;
+    padding: 20px;
     &-wrapper {
     }
     &-info {
@@ -257,16 +258,16 @@ export default {
   }
 }
 .font {
-  min-height: 418px !important;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 30px;
+  min-height: auto !important;
   &__image {
     max-width: 100%;
     height: auto;
-    margin-left: 100px;
-    &:first-child {
-      margin-left: 60px;
-    }
+    margin-bottom: 30px;
+    padding: 5px;
   }
 }
 .palette {
@@ -371,20 +372,6 @@ export default {
       }
     }
   }
-  .font {
-    min-height: initial !important;
-    padding: 30px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    &__image {
-      margin-left: 0;
-      margin-bottom: 20px;
-      &:first-child {
-        margin-left: 0;
-      }
-    }
-  }
   .palette {
     padding: 30px;
     padding-right: 0;
@@ -398,7 +385,6 @@ export default {
 @media (max-width: 970px) {
   .about {
     flex-direction: column;
-    min-height: 40vh;
     &__description {
       // word-break: ;
       padding: 30px 10px;
