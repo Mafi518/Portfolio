@@ -418,14 +418,26 @@ export default {
     height: 100%;
   }
 }
-
+@media (max-width: 1440px) {
+  .home {
+    &__portfolio {
+      &-list {
+      }
+    }
+  }
+}
 @media (max-width: 1024px) {
   .menu {
     &__list {
       flex-direction: column;
     }
+    &__link-wrapper {
+      height: 100%;
+      flex-grow: initial;
+    }
   }
 }
+
 @media (max-height: 768px) and (max-width: 1024px) {
   .menu {
     &__subtitle {

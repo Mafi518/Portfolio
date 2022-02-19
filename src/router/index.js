@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { TimelineMax, Power3 } from "gsap";
+// import transition from '@/animations/page_transition'
 
 import Home from "../views/Home.vue";
 
@@ -8,29 +9,64 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    beforeEnter: (to, from, next) => {
-      let tl = new TimelineMax({});
-
+    beforeEnter(to, from, next) {
       if (to.path == from.path) {
-        tl.set(".case-loader__animate", {
-          scale: 5000,
-          onComplete: () => {
-            next();
-          },
-        });
-        tl.to(".case-loader__animate", 1.4, {
-          scale: 0,
-          ease: Power3.easeInOut,
-        });
-      } else {
-        tl.to(".case-loader__animate", 1.4, {
-          ease: Power3.easeInOut,
-          scale: 5000,
+        let tl = new TimelineMax({});
+
+        tl.set(".case-loader", {
+          opacity: 1,
+          zIndex: 2,
         });
 
-        tl.play().then(() => {
-          next();
-          tl.reverse();
+        tl.to(".case-loader__animate-item", 1.4, {
+          delay: 0.8,
+          stagger: 0.1,
+          ease: Power3.easeInOut,
+          transform: `translateX(100%)`,
+        });
+
+        tl.set(".case-loader", {
+          opacity: 0,
+          zIndex: -2,
+        });
+
+        tl.play();
+        next();
+      } else {
+        let tl = new TimelineMax({});
+
+        tl.set(".case-loader", {
+          opacity: 1,
+          zIndex: 2,
+        });
+
+        tl.fromTo(
+          ".case-loader__animate-item",
+          1.4,
+          {
+            stagger: 0.1,
+            ease: Power3.easeInOut,
+            transform: `translateX(-100%)`,
+          },
+          {
+            stagger: 0.1,
+            ease: Power3.easeInOut,
+            transform: `translateX(0%)`,
+            onComplete: () => {
+              next();
+            },
+          }
+        );
+
+        tl.to(".case-loader__animate-item", 1.4, {
+          stagger: 0.1,
+          ease: Power3.easeInOut,
+          transform: `translateX(100%)`,
+        });
+
+        tl.set(".case-loader", {
+          opacity: 0,
+          zIndex: -2,
         });
       }
     },
@@ -38,16 +74,41 @@ const routes = [
   {
     path: "/about",
     name: "About",
-    beforeEnter: (to, from, next) => {
+    beforeEnter(to, from, next) {
       let tl = new TimelineMax({});
-      tl.to(".case-loader__animate", 1.4, {
-        ease: Power3.easeInOut,
-        scale: 5000,
+
+      tl.set(".case-loader", {
+        opacity: 1,
+        zIndex: 2,
       });
 
-      tl.play().then(() => {
-        next();
-        tl.reverse();
+      tl.fromTo(
+        ".case-loader__animate-item",
+        1.4,
+        {
+          stagger: 0.1,
+          ease: Power3.easeInOut,
+          transform: `translateX(-100%)`,
+        },
+        {
+          stagger: 0.1,
+          ease: Power3.easeInOut,
+          transform: `translateX(0%)`,
+          onComplete: () => {
+            next();
+          },
+        }
+      );
+
+      tl.to(".case-loader__animate-item", 1.4, {
+        stagger: 0.1,
+        ease: Power3.easeInOut,
+        transform: `translateX(100%)`,
+      });
+
+      tl.set(".case-loader", {
+        opacity: 0,
+        zIndex: -2,
       });
     },
     // route level code-splitting
@@ -60,16 +121,41 @@ const routes = [
     path: "/portfolio",
     name: "Portfolio",
     params: {},
-    beforeEnter: (to, from, next) => {
+    beforeEnter(to, from, next) {
       let tl = new TimelineMax({});
-      tl.to(".case-loader__animate", 1.4, {
-        ease: Power3.easeInOut,
-        scale: 5000,
+
+      tl.set(".case-loader", {
+        opacity: 1,
+        zIndex: 2,
       });
 
-      tl.play().then(() => {
-        next();
-        tl.reverse();
+      tl.fromTo(
+        ".case-loader__animate-item",
+        1.4,
+        {
+          stagger: 0.1,
+          ease: Power3.easeInOut,
+          transform: `translateX(-100%)`,
+        },
+        {
+          stagger: 0.1,
+          ease: Power3.easeInOut,
+          transform: `translateX(0%)`,
+          onComplete: () => {
+            next();
+          },
+        }
+      );
+
+      tl.to(".case-loader__animate-item", 1.4, {
+        stagger: 0.1,
+        ease: Power3.easeInOut,
+        transform: `translateX(100%)`,
+      });
+
+      tl.set(".case-loader", {
+        opacity: 0,
+        zIndex: -2,
       });
     },
     // route level code-splitting
@@ -81,16 +167,41 @@ const routes = [
   {
     path: "/contacts",
     name: "Contacts",
-    beforeEnter: (to, from, next) => {
+    beforeEnter(to, from, next) {
       let tl = new TimelineMax({});
-      tl.to(".case-loader__animate", 1.4, {
-        ease: Power3.easeInOut,
-        scale: 5000,
+
+      tl.set(".case-loader", {
+        opacity: 1,
+        zIndex: 2,
       });
 
-      tl.play().then(() => {
-        next();
-        tl.reverse();
+      tl.fromTo(
+        ".case-loader__animate-item",
+        1.4,
+        {
+          stagger: 0.1,
+          ease: Power3.easeInOut,
+          transform: `translateX(-100%)`,
+        },
+        {
+          stagger: 0.1,
+          ease: Power3.easeInOut,
+          transform: `translateX(0%)`,
+          onComplete: () => {
+            next();
+          },
+        }
+      );
+
+      tl.to(".case-loader__animate-item", 1.4, {
+        stagger: 0.1,
+        ease: Power3.easeInOut,
+        transform: `translateX(100%)`,
+      });
+
+      tl.set(".case-loader", {
+        opacity: 0,
+        zIndex: -2,
       });
     },
     // route level code-splitting
@@ -102,21 +213,82 @@ const routes = [
   {
     path: "/case",
     name: "Case",
-    // beforeEnter: (to, from, next) => {
-    //   let tl = new TimelineMax({});
-    //   tl.to(".case-loader__animate", 1.4, {
-    //     ease: Power3.easeInOut,
-    //     scale: 5000,
-    //   });
+    beforeEnter(to, from, next) {
+      if (to.path == from.path) {
+        let tl = new TimelineMax({});
 
-    //   tl.play().then(() => {
-    //     next();
-    //     tl.reverse();
-    //   });
-    // },
-    // route level code-splitting
-    // this generates a separate chunk (portfolio.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
+        tl.set(".case-loader", {
+          opacity: 1,
+          zIndex: 2,
+        });
+
+        tl.fromTo(
+          ".case-loader__animate-item",
+          1.4,
+          {
+            stagger: 0.1,
+            ease: Power3.easeInOut,
+            transform: `translateX(-100%)`,
+          },
+          {
+            stagger: 0.1,
+            ease: Power3.easeInOut,
+            transform: `translateX(0%)`,
+            onComplete: () => {
+              next();
+            },
+          }
+        );
+
+        tl.set(".case-loader__wrapper", {
+          zIndex: 3,
+        });
+
+        tl.to(".case-loader__title", 0.8, {
+          height: "auto",
+          ease: Power3.easeInOut,
+        });
+        tl.to(
+          ".case-loader__tasks",
+          0.8,
+          {
+            height: "auto",
+            ease: Power3.easeInOut,
+          },
+          "-=0.6"
+        );
+
+        tl.to(".case-loader__title", 0.8, {
+          delay: 1,
+          height: "0",
+          ease: Power3.easeInOut,
+        });
+        tl.to(
+          ".case-loader__tasks",
+          0.8,
+          {
+            height: "0",
+            ease: Power3.easeInOut,
+          },
+          "-=0.6"
+        );
+
+        tl.to(".case-loader__animate-item", 1.4, {
+          stagger: 0.1,
+          ease: Power3.easeInOut,
+          transform: `translateX(100%)`,
+        });
+
+        tl.set(".case-loader", {
+          opacity: 0,
+          zIndex: -2,
+        });
+
+        tl.play();
+      } else {
+        next();
+      }
+    },
     component: () => import(/* webpackChunkName: "case" */ "../views/Case.vue"),
   },
 ];

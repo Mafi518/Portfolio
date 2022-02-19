@@ -48,7 +48,7 @@
 <script>
 import { mapActions, mapGetters } from "vuex";
 // import { case_page_transition } from '@/animations/case_animations'
-import { gsap, TimelineMax, Power2 } from "gsap";
+import { gsap, TimelineMax, Power3 } from "gsap";
 
 export default {
   name: "portfolio",
@@ -131,35 +131,74 @@ export default {
 
       let tl = new TimelineMax({});
 
-      tl.set(".case-loader__wrapper", {
+      tl.set(".case-loader", {
+        opacity: 1,
         zIndex: 2,
       });
-      tl.to(".case-loader__animate", 2, {
-        ease: Power2.easeInOut,
-        scale: 5000,
-        onComplete: () => {
-          this.$router.push("/case");
+
+      tl.fromTo(
+        ".case-loader__animate-item",
+        1.4,
+        {
+          stagger: 0.1,
+          ease: Power3.easeInOut,
+          transform: `translateX(-100%)`,
         },
+        {
+          stagger: 0.1,
+          ease: Power3.easeInOut,
+          transform: `translateX(0%)`,
+          onComplete: () => {
+            this.$router.push("/case");
+          },
+        }
+      );
+
+      tl.set(".case-loader__wrapper", {
+        zIndex: 3,
       });
+
       tl.to(".case-loader__title", 0.8, {
-        ease: Power2.easeInOut,
         height: "auto",
+        ease: Power3.easeInOut,
       });
       tl.to(
         ".case-loader__tasks",
         0.8,
         {
-          ease: Power2.easeInOut,
           height: "auto",
+          ease: Power3.easeInOut,
         },
-        "-=0.5"
+        "-=0.6"
       );
 
-      tl.play().then(() => {
-        setTimeout(async () => {
-          tl.reverse();
-        }, 1500);
+      tl.to(".case-loader__title", 0.8, {
+        delay: 1,
+        height: "0",
+        ease: Power3.easeInOut,
       });
+      tl.to(
+        ".case-loader__tasks",
+        0.8,
+        {
+          height: "0",
+          ease: Power3.easeInOut,
+        },
+        "-=0.6"
+      );
+
+      tl.to(".case-loader__animate-item", 1.4, {
+        stagger: 0.1,
+        ease: Power3.easeInOut,
+        transform: `translateX(100%)`,
+      });
+
+      tl.set(".case-loader", {
+        opacity: 0,
+        zIndex: -2,
+      });
+
+      tl.play();
     },
   },
   mounted() {

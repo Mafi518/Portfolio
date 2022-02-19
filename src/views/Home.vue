@@ -133,7 +133,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { TimelineMax, Power2 } from "gsap";
+import { TimelineMax, Power3 } from "gsap";
 
 export default {
   name: "Home",
@@ -145,35 +145,74 @@ export default {
 
       let tl = new TimelineMax({});
 
-      tl.set(".case-loader__wrapper", {
+      tl.set(".case-loader", {
+        opacity: 1,
         zIndex: 2,
       });
-      tl.to(".case-loader__animate", 2, {
-        ease: Power2.easeInOut,
-        scale: 5000,
-        onComplete: () => {
-          this.$router.push("/case");
+
+      tl.fromTo(
+        ".case-loader__animate-item",
+        1.4,
+        {
+          stagger: 0.1,
+          ease: Power3.easeInOut,
+          transform: `translateX(-100%)`,
         },
+        {
+          stagger: 0.1,
+          ease: Power3.easeInOut,
+          transform: `translateX(0%)`,
+          onComplete: () => {
+            this.$router.push("/case");
+          },
+        }
+      );
+
+      tl.set(".case-loader__wrapper", {
+        zIndex: 3,
       });
+
       tl.to(".case-loader__title", 0.8, {
-        ease: Power2.easeInOut,
         height: "auto",
+        ease: Power3.easeInOut,
       });
       tl.to(
         ".case-loader__tasks",
         0.8,
         {
-          ease: Power2.easeInOut,
           height: "auto",
+          ease: Power3.easeInOut,
         },
-        "-=0.5"
+        "-=0.6"
       );
 
-      tl.play().then(() => {
-        setTimeout(async () => {
-          tl.reverse();
-        }, 1500);
+      tl.to(".case-loader__title", 0.8, {
+        delay: 1,
+        height: "0",
+        ease: Power3.easeInOut,
       });
+      tl.to(
+        ".case-loader__tasks",
+        0.8,
+        {
+          height: "0",
+          ease: Power3.easeInOut,
+        },
+        "-=0.6"
+      );
+
+      tl.to(".case-loader__animate-item", 1.4, {
+        stagger: 0.1,
+        ease: Power3.easeInOut,
+        transform: `translateX(100%)`,
+      });
+
+      tl.set(".case-loader", {
+        opacity: 0,
+        zIndex: -2,
+      });
+
+      tl.play();
     },
     hireMe() {
       window.open("https://t.me/AndrewDeveloper", "_blank");
@@ -271,14 +310,7 @@ export default {
         margin-right: 20px;
       }
     }
-    &-title,
-    &-item,
-    &-title a {
-      margin-left: 20px;
-    }
-    &-title a {
-      margin-right: 20px;
-    }
+
     &-info {
       background-color: $dark;
       width: 100%;
@@ -318,6 +350,25 @@ export default {
       }
       &-link {
         margin-left: 10px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  .home {
+    overflow: auto;
+    &__portfolio {
+      &-title,
+      &-item,
+      &-title a {
+        margin-left: 20px;
+      }
+      &-title a {
+        margin-right: 20px;
+      }
+      &-item {
+        margin-right: 0px;
       }
     }
   }
@@ -391,8 +442,9 @@ export default {
     &__portfolio {
       max-width: 100%;
       padding-bottom: 20px;
-      padding-right: 140px;
       height: 50%;
+      padding: 0;
+      padding-bottom: 20px;
       &-label {
         display: none;
       }
@@ -409,7 +461,6 @@ export default {
         padding-right: 10px;
       }
       &-item {
-        margin-right: 25px;
         min-width: 300px;
         min-height: initial;
       }

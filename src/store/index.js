@@ -298,7 +298,7 @@ export default createStore({
           description: {
             project_description:
               "Интернет-магазин пончиков, вкуснейшие, нежнейшие с доставкой на дом",
-            color: "#fff",
+            color: "#000",
           },
           labels: ["Разработка"],
           technologies: "HTML5, SCSS, gulp, pug, jade, БЭМ, js, babel",
@@ -317,7 +317,7 @@ export default createStore({
           description: {
             project_description:
               "The Garden — это самый живописный коворкинг Киева для людей, которые по-настоящему увлечены работой",
-            color: "#fff",
+            color: "#000",
           },
           labels: ["Разработка"],
           technologies: "HTML5, SCSS, gulp, pug, jade, БЭМ, js, babel",
